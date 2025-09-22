@@ -1,0 +1,26 @@
+.stylo-font-selector {
+    margin-bottom: 1rem;
+  }
+  
+  .stylo-font-selector-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+  
+  .stylo-font-selector-select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #d1d5db;
+    background-color: #fff;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.15s ease-in-out;
+  }
+  
+  .stylo-font-selector-select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5);
+  }
