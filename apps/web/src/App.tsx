@@ -1,7 +1,7 @@
 
 import { Label, StyloApp } from 'stylo-editor';
 import './App.css';
-
+import 'stylo-editor/dist/styles.css';
 function App() {
  
   return (
