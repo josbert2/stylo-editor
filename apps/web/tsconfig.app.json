@@ -17,7 +17,8 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "stylo-editor": ["../../packages/stylo-editor/src"]
     }
   },
   "include": ["src"],

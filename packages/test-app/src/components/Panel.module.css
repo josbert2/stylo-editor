@@ -1,0 +1,43 @@
+/* Panel.module.css */
+
+.base {
+    position: fixed;             /* fixed */
+    display: flex;               /* flex */
+    flex-direction: column;      /* flex-col */
+    border-radius: 0.5rem;       /* rounded-lg */
+    overflow: hidden;            /* overflow-hidden */
+    font-family: sans-serif;     /* font-sans */
+  
+    /* Tailwind equivalents */
+    background-color: var(--color-primary-bg);
+    border: 1px solid var(--color-secondary-bg);
+    color: white; /* text-white */
+    z-index: 9999; /* z-[9999] */
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); /* shadow-2xl */
+  }
+  
+  .transitionNormal {
+    transition: all 0.3s ease; /* transition-all duration-300 */
+  }
+  
+  .scaleOnDrag {
+    transform: scale(1.05); /* scale-105 */
+    box-shadow: 0 35px 70px -12px rgba(0,0,0,0.4); /* shadow-3xl */
+    transition: none; /* transition-none */
+  }
+  
+  .hoverShadow:hover {
+    box-shadow: 0 35px 70px -12px rgba(0,0,0,0.4); /* hover:shadow-3xl */
+  }
+
+  
+  .minimized {
+    height: 2.75rem; /* h-11 → 11*0.25rem = 2.75rem */
+    width: auto;     /* como no pones w en h-11, dejamos auto */
+  }
+  
+  /* Estado normal / abierto */
+  .normal {
+    width: 24rem; /* w-96 → 96*0.25rem = 24rem */
+    height: calc(100vh - 2rem); /* h-[calc(100vh-2rem)] */
+  }

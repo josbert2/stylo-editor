@@ -1,23 +1,28 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+// apps/web/vite.config.ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'node:path'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
+    dedupe: ['react', 'react-dom'],
   },
-  // Optimización para monorepos
   server: {
-    watch: {
-      ignored: ['!**/node_modules/stylo-editor/**']
-    }
+    fs: {
+      allow: [
+        // raíz de tu app web
+        path.resolve(__dirname),
+        // carpeta del paquete que quieres leer fuera del root
+        path.resolve(__dirname, '../../packages/stylo-editor'),
+      ],
+      // Si estás en WSL o FS de red:
+      // strict: false,
+    },
+    // Si no te detecta cambios en Linux/WSL:
+    // watch: { usePolling: true, interval: 100 },
   },
   optimizeDeps: {
-    include: ['stylo-editor'],
-    force: true
-  }
-});
+    exclude: ['stylo-editor'],
+  },
+})

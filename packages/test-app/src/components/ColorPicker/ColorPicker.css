@@ -1,0 +1,18 @@
+.stylo-color-picker {
+    margin-bottom: 1rem;
+  }
+  
+  .stylo-color-picker-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+  
+  .stylo-color-picker-container {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    border: 1px solid #e5e7eb;
+  }

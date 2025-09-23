@@ -1,0 +1,159 @@
+/* PanelHeader.module.css */
+:root{
+    --avocado-500: red;
+    --primary-bg: #121315;
+    --secondary-bg: #ffffff08;
+    --pikend-bg: #E9B3FB;
+  }
+  
+/* Panel base */
+.panel {
+    display: flex;                   /* flex */
+    justify-content: space-between;  /* justify-between */
+    align-items: center;             /* items-center */
+    padding-left: 0.75rem;           /* px-3 */
+    padding-right: 0.75rem;
+    width: 100%;                     /* w-full */
+    height: 100%;                    /* h-full */
+    border-radius: 0.5rem;           /* rounded */
+    border: 1px solid #ffffff08; /* border-secondary-bg */
+    backdrop-filter: blur(12px);     /* backdrop-blur-md */
+    transition: background-color 0.2s ease, color 0.2s ease; /* transition-colors */
+    user-select: none;               /* select-none */
+    cursor: grab;                    /* cursor-grab */
+    overflow: hidden;
+  
+    /* Fondo degradado */
+    background-image: linear-gradient(
+      110deg,
+      #000103,
+      45%,
+      #1e2631 55%,
+      #000103
+    );
+    background-size: 200% 100%; /* bg-[length:200%_100%] */
+    color: white;
+    font-family: sans-serif;
+    z-index: 50; /* z-50 */
+  }
+  
+  /* Estado activo (click) */
+  .panel:active {
+    cursor: grabbing; /* active:cursor-grabbing */
+  }
+  
+  /* Hover */
+  .panel:hover {
+    background-color: color-mix(in srgb, #121315 90%, transparent);
+    background-image: none; /* opcional: quita el gradiente al hover */
+  }
+  
+  /* Panel minimizado */
+  .minimized {
+    height: 2.75rem; /* h-11 → 11*0.25 = 2.75rem */
+    width: auto;
+  }
+
+  /* flex gap-2 items-center */
+  .flexGap2ItemsCenter{
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .logoApp{
+    width: 82px;
+    height: 82px;
+  }
+
+  /* styles.module.css */
+.inspectorIcon {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+  }
+  
+  .inspectorIconActive {
+    border: none;
+    background-color: var(--pikend-bg);
+  }
+  
+  .inspectorIconInactive {
+    background-color: var(--secondary-bg);
+    border-color: color-mix(in oklab, var(--pikend-bg) 10%, transparent);
+  }
+
+  /* flex gap-1 items-center */
+  .flexGap1ItemsCenter{
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+  }
+
+  /*Expand btn*/
+
+  .expandBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: background-color 200ms ease-in-out;
+    cursor: pointer;
+    border: 1px solid transparent;
+    background-color: var(--secondary-bg);
+  }
+
+  .expandBtn:hover {
+    background-color: color-mix(in oklab, var(--pikend-bg) 10%, transparent);
+    border-color: color-mix(in oklab, var(--pikend-bg) 10%, transparent);
+  }
+
+  /* flex justify-center items-center w-7 h-7 text-xs text-gray-300 rounded duration-200 cursor-pointer group-hover:opacity-100 bg-secondary-bg hover:bg-pikend-bg/20 
+    components css button
+  */
+
+  .button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: background-color 200ms ease-in-out;
+    cursor: pointer;
+    border: 1px solid transparent;
+    background-color: var(--secondary-bg);
+  }
+
+  .button:hover {
+    background-color: color-mix(in oklab, var(--pikend-bg) 10%, transparent);
+    border-color: color-mix(in oklab, var(--pikend-bg) 10%, transparent);
+  }
+
+  /* Drag handle visible 
+  absolute top-2 left-1/2 z-10 w-8 h-1 bg-gray-600 rounded-full transition-colors transform -translate-x-1/2 drag-handle cursor-grab hover:bg-gray-500
+  */
+  .dragHandle{
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    z-index: 10;
+    width: 32px;
+    height: 4px;
+    background-color: #4b5563;
+    border-radius: 9999px;
+    transition: background-color 150ms ease-in-out;
+    transform: translateX(-50%);
+    cursor: grab; 
+  }
+
+  .dragHandle:hover {
+    background-color: color-mix(in oklab, var(--pikend-bg) 10%, transparent);
+  }

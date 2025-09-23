@@ -7,12 +7,14 @@ interface ColorPickerProps {
   color: string;
   onChange: (color: string) => void;
   label?: string;
+  className?: string;
 }
 
 export const ColorPicker: React.FC<ColorPickerProps> = ({ 
   color, 
   onChange, 
-  label 
+  label,
+  className 
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const pickrInstance = useRef<Pickr | null>(null);
@@ -62,8 +64,10 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
     }
   }, [color]);
 
+  const containerClasses = `stylo-color-picker ${className || ''}`;
+
   return (
-    <div className="stylo-color-picker">
+    <div className={containerClasses}>
       {label && <label className="stylo-color-picker-label">{label}</label>}
       <div className="stylo-color-picker-container" ref={containerRef}></div>
     </div>

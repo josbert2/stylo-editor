@@ -1,0 +1,90 @@
+.button-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: all 150ms;
+    cursor: pointer;
+  }
+  
+  .button-base:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  .button-primary {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+  }
+  
+  .button-primary:hover:not(:disabled) {
+    background-color: #2563eb;
+  }
+  
+  .button-secondary {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    border: none;
+  }
+  
+  .button-secondary:hover:not(:disabled) {
+    background-color: #e5e7eb;
+  }
+  
+  .button-outline {
+    background-color: transparent;
+    border: 1px solid #d1d5db;
+    color: #1f2937;
+  }
+  
+  .button-outline:hover:not(:disabled) {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+  }
+  
+  .button-ghost {
+    background-color: transparent;
+    border: none;
+    color: #1f2937;
+  }
+  
+  .button-ghost:hover:not(:disabled) {
+    background-color: #f3f4f6;
+  }
+  
+  .button-sm {
+    height: 2rem;
+    padding: 0 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  .button-md {
+    height: 2.5rem;
+    padding: 0 1rem;
+    font-size: 1rem;
+  }
+  
+  .button-lg {
+    height: 3rem;
+    padding: 0 1.25rem;
+    font-size: 1.125rem;
+  }
+  
+  .loading-spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5rem;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }

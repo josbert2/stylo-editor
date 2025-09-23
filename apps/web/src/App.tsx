@@ -1,5 +1,5 @@
 
-import { Label } from 'stylo-editor';
+import { Label, StyloApp } from 'stylo-editor';
 import './App.css';
 
 function App() {
@@ -11,6 +11,9 @@ function App() {
         <Label>
           Click me
         </Label>
+        <StyloApp />
+          
+   
       </div>
     </div>
   );
