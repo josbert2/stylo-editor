@@ -9,10 +9,9 @@
 /* Panel base */
 .panel {
     display: flex;                   /* flex */
-    justify-content: space-between;  /* justify-between */
+    
     align-items: center;             /* items-center */
-    padding-left: 0.75rem;           /* px-3 */
-    padding-right: 0.75rem;
+
     width: 100%;                     /* w-full */
     height: 100%;                    /* h-full */
     border-radius: 0.5rem;           /* rounded */
@@ -59,6 +58,8 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
+
+    padding-right: 12px;
   }
 
   .logoApp{
@@ -89,6 +90,8 @@
     display: flex;
     gap: 0.25rem;
     align-items: center;
+    margin-left: auto;
+    padding-right: 12px;
   }
 
   /*Expand btn*/
