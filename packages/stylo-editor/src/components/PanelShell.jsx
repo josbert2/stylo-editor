@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import Panel from '../Panel.module.css';
+import Panel from './Panel.module.css';
 
 export default function PanelShell({
   panelRef,

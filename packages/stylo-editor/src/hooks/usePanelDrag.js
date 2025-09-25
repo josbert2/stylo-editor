@@ -122,4 +122,16 @@ export default function usePanelDrag({ isMinimized, minimizedCorner, setMinimize
     document.addEventListener('mousemove', handlePanelDragMove);
     document.addEventListener('mouseup', handlePanelDragEnd);
     return () => {
-      document.removeEventListener('mousemove', handleP
+      document.removeEventListener('mousemove', handlePanelDragMove);
+      document.removeEventListener('mouseup', handlePanelDragEnd);
+    };
+  }, [isDraggingPanel, handlePanelDragMove, handlePanelDragEnd]);
+
+  return {
+    panelRef,
+    panelPosition,
+    isDraggingPanel,
+    setIsDraggingPanel,
+    handlePanelDragStart,
+  };
+}

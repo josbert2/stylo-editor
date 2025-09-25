@@ -1,5 +1,4 @@
-import PanelHeader from '../PanelHeader.module.css';
-import LogoApp from '../LogoApp';
+import LogoApp from './LogoApp';
 
 export default function MinimizedPanel({
   isInspectorMode,
@@ -9,18 +8,18 @@ export default function MinimizedPanel({
   onCycleCorner
 }) {
   return (
-    <div className={`${PanelHeader.panel} minimized-panel`} onMouseDown={onDragStart}>
-      <div className={`${PanelHeader.flexGap2ItemsCenter}`}>
-        <div><LogoApp variant="white" size={82} className={`${PanelHeader.logoApp}`} /></div>
-        <div className={`${PanelHeader.inspectorIcon} ${isInspectorMode ? PanelHeader.inspectorIconActive : PanelHeader.inspectorIconInactive}`} />
-        <div className={`${PanelHeader.inspectorIcon} ${selectedElement ? PanelHeader.inspectorIconActive : PanelHeader.inspectorIconInactive}`} />
+    <div className="minimized-panel" onMouseDown={onDragStart}>
+      <div className="flex gap-2 items-center">
+        <div><LogoApp variant="white" size={82} className="logo-app" /></div>
+        <div className={`inspector-icon ${isInspectorMode ? 'inspector-icon-active' : 'inspector-icon-inactive'}`} />
+        <div className={`inspector-icon ${selectedElement ? 'inspector-icon-active' : 'inspector-icon-inactive'}`} />
       </div>
 
-      <div className={`${PanelHeader.flexGap1ItemsCenter}`}>
-        <div onClick={(e) => { e.stopPropagation(); onExpand(); }} className={`${PanelHeader.expandBtn}`} title="Expand panel">
+      <div className="flex gap-1 items-center">
+        <div onClick={(e) => { e.stopPropagation(); onExpand(); }} className="expand-btn" title="Expand panel">
           <i className="ti ti-maximize"></i>
         </div>
-        <div onClick={(e) => { e.stopPropagation(); onCycleCorner(); }} className={`${PanelHeader.button}`} title="Move position">
+        <div onClick={(e) => { e.stopPropagation(); onCycleCorner(); }} className="button" title="Move position">
           <i className="ti ti-replace"></i>
         </div>
       </div>

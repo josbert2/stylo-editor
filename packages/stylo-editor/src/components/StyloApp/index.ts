@@ -1,2 +1,1 @@
-
-export { StyloApp } from './StyloApp';
+export { default as StyloApp } from "./StyloApp.jsx";

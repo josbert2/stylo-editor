@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 // Export components
-export { StyloApp } from "./components/StyloApp/StyloApp";
+export { StyloApp } from "./components/StyloApp/StyloAppw";
 
 // Export hooks
 export * from "./hooks";

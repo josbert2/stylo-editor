@@ -1,6 +1,6 @@
-import styles from "../../Csspro.module.css";
+import styles from "../Csspro.module.css";
 import { Minus as MinusIcon, Plus as PlusIcon } from 'lucide-react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 export default function SpacingVisualizer({
   spacingValues,

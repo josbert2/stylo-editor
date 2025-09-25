@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyloApp } from './components/StyloApp/StyloApp';
+import { StyloApp } from './components/StyloApp/StyloAppw';
 
 const App = () => {
   return (

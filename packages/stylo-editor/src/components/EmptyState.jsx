@@ -1,6 +1,6 @@
-import { DotPattern } from '../../components/dot-parttern';
-import LogoApp from '../LogoApp';
-import { cn } from "../../utils/cn";
+import { DotPattern } from './dot-parttern';
+import LogoApp from './LogoApp';
+import { cn } from "../utils/cn";
 
 export default function EmptyState({ isInspectorMode, toggle }) {
   return (
@@ -20,12 +20,12 @@ export default function EmptyState({ isInspectorMode, toggle }) {
           <button
             onClick={toggle}
             className={cn(
-              "group relative cursor-pointer inline-flex items-center justify-center px-8 py-3 text-sm font-medium transition-all duration-300 ease-out",
-              "bg-secondary-bg text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-purple-500/25",
-              "transform hover:scale-105 active:scale-95 border border-white/20 hover:border-white/30"
+              "inline-flex relative justify-center items-center px-8 py-3 text-sm font-medium transition-all duration-300 ease-out cursor-pointer group",
+              "text-white rounded-full shadow-lg bg-secondary-bg hover:shadow-xl hover:shadow-purple-500/25",
+              "border transform hover:scale-105 active:scale-95 border-white/20 hover:border-white/30"
             )}
           >
-            <i className="ti ti-target mr-2 w-4 h-4 transition-transform group-hover:rotate-12" />
+            <i className="mr-2 w-4 h-4 transition-transform ti ti-target group-hover:rotate-12" />
             <span className="relative z-10">
               {isInspectorMode ? 'Desactivar Inspector' : 'Activar Inspector'}
             </span>
