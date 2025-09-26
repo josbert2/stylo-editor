@@ -13,7 +13,8 @@
   "dependencies": {
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "stylo-editor": "file:../../packages/stylo-editor"
+    "stylo-editor": "file:../../packages/stylo-editor",
+    "test-stylo-editor": "^2.2.0"
   },
   "devDependencies": {
     "@types/react": "18.2.15",
