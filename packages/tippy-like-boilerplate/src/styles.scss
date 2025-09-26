@@ -1,0 +1,15 @@
+:root { --brand: #4c8bf5; }
+
+.demo {
+  font-family: system-ui, sans-serif;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: inline-block;
+  margin: 8px 0;
+
+  &__title {
+    font-weight: 600;
+    color: var(--brand);
+  }
+}
