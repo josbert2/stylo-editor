@@ -263,16 +263,20 @@ const configs = {
   devReact: () => ({
     input: 'test/react/main.tsx',
     plugins: [
-      plugins.resolve,            // 👈 resolve siempre antes que babel
-      plugins.babel,
+      plugins.resolve,                 // 1) resolver rutas/ts/tsx
+      esbuild({
+        include: /\.[jt]sx?$/,        // 2) compilar TS/TSX/JS/JSX
+        jsx: 'automatic',             // React 17+ runtime
+        tsconfig: 'tsconfig.json',
+        target: 'es2019',
+      }),
       plugins.json,
       replace({ __DEV__: 'true' }),
       plugins.replaceEnvDevelopment,
-      sass({ output: true }),     // si importas .scss desde el wrapper o demo
-      serve({ contentBase: 'test/react', port: 1235 }), // puerto distinto
+      sass({ output: true }),
+      serve({ contentBase: 'test/react', port: 1235 }),
       livereload(),
     ],
-    // Opción A: IIFE con React externals via CDN (ver index.html abajo)
     external: ['react', 'react-dom'],
     output: {
       file: 'test/react/dist/bundle.js',
@@ -287,7 +291,12 @@ const configs = {
     input: 'test/react/main.tsx',
     plugins: [
       plugins.resolve,
-      plugins.babel,
+      esbuild({
+        include: /\.[jt]sx?$/,
+        jsx: 'automatic',
+        tsconfig: 'tsconfig.json',
+        target: 'es2019',
+      }),
       plugins.json,
       replace({ __DEV__: 'true' }),
       plugins.replaceEnvDevelopment,
