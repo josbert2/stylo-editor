@@ -1,4 +1,6 @@
 import { hello } from "../../src/index.ts";
+import { attachFloating } from "../../src/floating";
+
 import "../../src/styles.scss";
 
 const app = document.getElementById("app");

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "declaration": true,
+    "declarationDir": "types",
+    "emitDeclarationOnly": false,
+    "strict": true,
+    "moduleResolution": "Bundler",
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["src/core/*"],
+      "@react/*": ["src/react/*"]
+    }
+  },
+  "include": ["src", "build", "react-build"]
+}

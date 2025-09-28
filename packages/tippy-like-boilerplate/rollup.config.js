@@ -7,12 +7,14 @@ import sass from 'rollup-plugin-sass';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import esbuild from 'rollup-plugin-esbuild';
+
 import pkg from './package.json'; // ← ajustado a la raíz
 
 const NAMESPACE_PREFIX = process.env.NAMESPACE || 'tippy';
 
 const plugins = {
-  babel: babel({ extensions: ['.js', '.ts'] }),
+  babel: babel({ extensions: ['.js', '.ts', '.tsx'] }),
   replaceNamespace: replace({
     __NAMESPACE_PREFIX__: NAMESPACE_PREFIX,
   }),
@@ -23,7 +25,7 @@ const plugins = {
     'process.env.NODE_ENV': JSON.stringify('development'),
   }),
   minify: terser(),
-  resolve: resolve({ extensions: ['.js', '.ts'] }),
+  resolve: resolve({ extensions: ['.mjs', '.js', '.json', '.node', '.ts', '.tsx'] }),
   // Nota: cssOnly no compila SCSS. Usamos SASS para compilar y además extraer a archivo.
   css: cssOnly({ output: false }),
   json: json(),
@@ -83,7 +85,7 @@ const prodConfig = [
   {
     input: 'build/base-umd.js',
     plugins: pluginConfigs.umdBase,
-    external: ['@popperjs/core'],
+    external: ['@popperjs/core', 'react'],
     output: {
       ...commonUMDOutputOptions,
       file: 'dist/tippy.umd.js',
@@ -184,6 +186,51 @@ const prodConfig = [
   },
 ];
 
+const reactGlobals = { react: 'React', 'react-dom': 'ReactDOM' };
+
+// React ESM
+prodConfig.push({
+  input: 'react-build/react.esm.tsx',           // exporta desde src/react/index.ts
+  plugins: pluginConfigs.base,
+  external: ['react', 'react-dom', '@popperjs/core'],
+  output: {
+    file: 'react/dist/index.esm.js',
+    format: 'esm',
+    banner,
+    sourcemap: true,
+  },
+});
+
+// React CJS
+prodConfig.push({
+  input: 'react-build/react.cjs.tsx',
+  plugins: pluginConfigs.base,
+  external: ['react', 'react-dom', '@popperjs/core'],
+  output: {
+    file: 'react/dist/index.cjs.js',
+    format: 'cjs',
+    exports: 'named',
+    banner,
+    sourcemap: true,
+  },
+});
+
+// (Opcional) React UMD para CDN (raro, pero posible)
+prodConfig.push({
+  input: 'react-build/react-umd.tsx',
+  plugins: pluginConfigs.umdBase, // o umdBaseMin para minificado
+  external: ['react', 'react-dom', '@popperjs/core'],
+  output: {
+    globals: { ...reactGlobals, '@popperjs/core': 'Popper' },
+    format: 'umd',
+    name: 'TippyReact',
+    sourcemap: true,
+    file: 'react/dist/index.umd.js',
+    banner,
+  },
+});
+
+
 // DEV/TEST (sin cambios relevantes)
 const configs = {
   dev: () => ({
@@ -212,6 +259,50 @@ const configs = {
     ],
     output: { file: 'test/visual/dist/bundle.js', format: 'iife' },
   }),
+
+  devReact: () => ({
+    input: 'test/react/main.tsx',
+    plugins: [
+      plugins.resolve,            // 👈 resolve siempre antes que babel
+      plugins.babel,
+      plugins.json,
+      replace({ __DEV__: 'true' }),
+      plugins.replaceEnvDevelopment,
+      sass({ output: true }),     // si importas .scss desde el wrapper o demo
+      serve({ contentBase: 'test/react', port: 1235 }), // puerto distinto
+      livereload(),
+    ],
+    // Opción A: IIFE con React externals via CDN (ver index.html abajo)
+    external: ['react', 'react-dom'],
+    output: {
+      file: 'test/react/dist/bundle.js',
+      format: 'iife',
+      globals: { react: 'React', 'react-dom': 'ReactDOM' },
+      name: 'ReactPlayground',
+      sourcemap: true,
+    },
+  }),
+
+  testReact: () => ({
+    input: 'test/react/main.tsx',
+    plugins: [
+      plugins.resolve,
+      plugins.babel,
+      plugins.json,
+      replace({ __DEV__: 'true' }),
+      plugins.replaceEnvDevelopment,
+      sass({ output: true }),
+    ],
+    external: ['react', 'react-dom'],
+    output: {
+      file: 'test/react/dist/bundle.js',
+      format: 'iife',
+      globals: { react: 'React', 'react-dom': 'ReactDOM' },
+      name: 'ReactPlayground',
+      sourcemap: true,
+    },
+  }),
+
 };
 
 const func = configs[process.env.NODE_ENV];

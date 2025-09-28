@@ -12,6 +12,11 @@
       "require": "./dist/tippy.cjs.js",
       "default": "./dist/tippy.esm.js"
     },
+    "./react": {
+      "require": "./react/dist/index.cjs.js",
+      "import": "./react/dist/index.esm.js",
+      "default": "./react/dist/index.esm.js"
+    },
     "./headless": {
       "types": "./headless/dist/index.d.ts",
       "import": "./headless/dist/tippy-headless.esm.js",
@@ -31,7 +36,10 @@
     "**/*.scss"
   ],
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev rollup -c -w",
+    "dev:visual": "cross-env NODE_ENV=dev rollup -c",
+    "test:visual": "cross-env NODE_ENV=test rollup -c",
+    "dev:react": "cross-env NODE_ENV=devReact rollup -c",
+    "test:react": "cross-env NODE_ENV=testReact rollup -c",
     "test:bundle": "cross-env NODE_ENV=test rollup -c",
     "build": "rimraf dist headless/dist && cross-env NODE_ENV=production rollup -c",
     "prepublishOnly": "npm run build"
@@ -45,6 +53,7 @@
     "rollup": "^2.79.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-esbuild": "^6.2.1",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-node-resolve": "^5.2.0",
@@ -55,12 +64,21 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "@popperjs/core": "^2.11.8",
-    "@floating-ui/dom": "^1.6.9"
+    "@floating-ui/dom": "^1.6.9",
+    "@popperjs/core": "^2.11.8"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17"
   },
   "babel": {
     "presets": [
-      ["@babel/preset-env", { "modules": false }],
+      [
+        "@babel/preset-env",
+        {
+          "modules": false
+        }
+      ],
       "@babel/preset-typescript"
     ]
   }
