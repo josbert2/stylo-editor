@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tippy-like Boilerplate - React Example</title>
+    
+    <!-- CSS del tooltip -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tippy-like-boilerplate@1.0.0/dist/tippy.css">
+    
+    <!-- React y ReactDOM desde CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Floating UI -->
+    <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.9/dist/floating-ui.dom.umd.min.js"></script>
+    
+    <!-- Nuestro bundle UMD -->
+    <script src="../dist/tippy-bundle.umd.js"></script>
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        
+        .demo-section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+        }
+        
+        .demo-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 14px;
+        }
+        
+        .demo-button:hover {
+            background: #0056b3;
+        }
+        
+        .demo-text {
+            display: inline-block;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            margin: 10px;
+            cursor: help;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #666;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 Tippy-like Boilerplate - React Example</h1>
+    
+    <div class="demo-section">
+        <h2>📦 Información del Package</h2>
+        <p><strong>Nombre:</strong> tippy-like-boilerplate</p>
+        <p><strong>Versión:</strong> 1.0.0</p>
+        <p><strong>CDN:</strong> jsDelivr & unpkg</p>
+        <div class="code-block">
+// CSS
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tippy-like-boilerplate@1.0.0/dist/tippy.css"&gt;
+
+// JavaScript UMD Bundle
+&lt;script src="https://cdn.jsdelivr.net/npm/tippy-like-boilerplate@1.0.0/dist/tippy-bundle.umd.min.js"&gt;&lt;/script&gt;
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>⚛️ Ejemplo con React Components</h2>
+        <div id="react-tooltip-demo"></div>
+    </div>
+
+    <div class="demo-section">
+        <h2>🎣 Ejemplo con useTooltip Hook</h2>
+        <div id="react-hook-demo"></div>
+    </div>
+
+    <div class="demo-section">
+        <h2>🎨 Diferentes Temas</h2>
+        <div id="react-themes-demo"></div>
+    </div>
+
+    <script type="text/babel">
+        const { useState } = React;
+        const { Tooltip, useTooltip } = window.tippy;
+
+        // Componente de demostración con Tooltip component
+        function TooltipDemo() {
+            return (
+                <div>
+                    <h3>Usando el componente Tooltip:</h3>
+                    
+                    <Tooltip content="¡Hola! Soy un tooltip en la parte superior" placement="top">
+                        <button className="demo-button">Hover me (Top)</button>
+                    </Tooltip>
+                    
+                    <Tooltip content="Tooltip en la parte inferior con más contenido para probar el wrap" placement="bottom">
+                        <button className="demo-button">Hover me (Bottom)</button>
+                    </Tooltip>
+                    
+                    <Tooltip content="Click tooltip!" trigger="click" placement="right">
+                        <button className="demo-button">Click me (Right)</button>
+                    </Tooltip>
+                    
+                    <Tooltip content="Tooltip con delay de 500ms" delay={500} placement="left">
+                        <button className="demo-button">Hover me (Left + Delay)</button>
+                    </Tooltip>
+                </div>
+            );
+        }
+
+        // Componente de demostración con useTooltip hook
+        function HookDemo() {
+            const tooltip1 = useTooltip({ 
+                placement: 'top', 
+                trigger: 'hover' 
+            });
+            
+            const tooltip2 = useTooltip({ 
+                placement: 'bottom', 
+                trigger: 'click' 
+            });
+            
+            const tooltip3 = useTooltip({ 
+                placement: 'right', 
+                trigger: 'manual' 
+            });
+
+            return (
+                <div>
+                    <h3>Usando el hook useTooltip:</h3>
+                    
+                    <button 
+                        ref={tooltip1.triggerRef}
+                        className="demo-button"
+                    >
+                        Hook Hover Tooltip
+                    </button>
+                    
+                    <button 
+                        ref={tooltip2.triggerRef}
+                        className="demo-button"
+                    >
+                        Hook Click Tooltip
+                    </button>
+                    
+                    <button 
+                        ref={tooltip3.triggerRef}
+                        className="demo-button"
+                        onClick={() => tooltip3.toggle()}
+                    >
+                        Manual Control Tooltip
+                    </button>
+
+                    {/* Tooltips */}
+                    {tooltip1.isVisible && (
+                        <div
+                            ref={tooltip1.tooltipRef}
+                            className="tippy-tooltip"
+                            style={{
+                                position: 'absolute',
+                                top: tooltip1.position.y,
+                                left: tooltip1.position.x,
+                                zIndex: 9999
+                            }}
+                        >
+                            <div className="tippy-content">
+                                ¡Tooltip creado con useTooltip hook!
+                            </div>
+                            <div ref={tooltip1.arrowRef} className="tippy-arrow" />
+                        </div>
+                    )}
+                    
+                    {tooltip2.isVisible && (
+                        <div
+                            ref={tooltip2.tooltipRef}
+                            className="tippy-tooltip"
+                            style={{
+                                position: 'absolute',
+                                top: tooltip2.position.y,
+                                left: tooltip2.position.x,
+                                zIndex: 9999
+                            }}
+                        >
+                            <div className="tippy-content">
+                                Click tooltip con hook personalizado
+                            </div>
+                            <div ref={tooltip2.arrowRef} className="tippy-arrow" />
+                        </div>
+                    )}
+                    
+                    {tooltip3.isVisible && (
+                        <div
+                            ref={tooltip3.tooltipRef}
+                            className="tippy-tooltip"
+                            style={{
+                                position: 'absolute',
+                                top: tooltip3.position.y,
+                                left: tooltip3.position.x,
+                                zIndex: 9999
+                            }}
+                        >
+                            <div className="tippy-content">
+                                Control manual del tooltip
+                            </div>
+                            <div ref={tooltip3.arrowRef} className="tippy-arrow" />
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Componente de demostración con diferentes temas
+        function ThemesDemo() {
+            return (
+                <div>
+                    <h3>Diferentes temas de tooltips:</h3>
+                    
+                    <Tooltip content="Tema por defecto (oscuro)" placement="top">
+                        <button className="demo-button">Default Theme</button>
+                    </Tooltip>
+                    
+                    <Tooltip content="Tema claro" placement="top" className="light">
+                        <button className="demo-button">Light Theme</button>
+                    </Tooltip>
+                    
+                    <Tooltip content="Tema de error" placement="top" className="error">
+                        <button className="demo-button">Error Theme</button>
+                    </Tooltip>
+                    
+                    <Tooltip content="Tema de éxito" placement="top" className="success">
+                        <button className="demo-button">Success Theme</button>
+                    </Tooltip>
+                </div>
+            );
+        }
+
+        // Renderizar los componentes
+        ReactDOM.render(<TooltipDemo />, document.getElementById('react-tooltip-demo'));
+        ReactDOM.render(<HookDemo />, document.getElementById('react-hook-demo'));
+        ReactDOM.render(<ThemesDemo />, document.getElementById('react-themes-demo'));
+    </script>
+
+    <!-- Babel para JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</body>
+</html>

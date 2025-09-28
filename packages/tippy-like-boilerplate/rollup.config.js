@@ -12,7 +12,15 @@ import pkg from './package.json'; // ← ajustado a la raíz
 const NAMESPACE_PREFIX = process.env.NAMESPACE || 'tippy';
 
 const plugins = {
-  babel: babel({ extensions: ['.js', '.ts'] }),
+  babel: babel({ 
+    extensions: ['.js', '.ts', '.tsx'],
+    exclude: 'node_modules/**',
+    presets: [
+      ['@babel/preset-env', { modules: false }],
+      '@babel/preset-react',
+      '@babel/preset-typescript'
+    ]
+  }),
   replaceNamespace: replace({
     __NAMESPACE_PREFIX__: NAMESPACE_PREFIX,
   }),
@@ -23,7 +31,10 @@ const plugins = {
     'process.env.NODE_ENV': JSON.stringify('development'),
   }),
   minify: terser(),
-  resolve: resolve({ extensions: ['.js', '.ts'] }),
+  resolve: resolve({ 
+    extensions: ['.js', '.ts', '.tsx'],
+    preferBuiltins: false
+  }),
   // Nota: cssOnly no compila SCSS. Usamos SASS para compilar y además extraer a archivo.
   css: cssOnly({ output: false }),
   json: json(),
@@ -36,13 +47,13 @@ const prodCommonPlugins = [
   plugins.json,
 ];
 
-// ⚠️ Cambiamos: para “bundle” usamos SASS con output a archivo
+// ⚠️ Cambiamos: para "bundle" usamos SASS con output a archivo
 const pluginConfigs = {
   base: [plugins.babel, ...prodCommonPlugins],
   bundle: [
     plugins.babel,
     ...prodCommonPlugins,
-    // compila SCSS importado desde entradas “bundle”
+    // compila SCSS importado desde entradas "bundle"
     sass({ output: 'dist/tippy.css' }),
   ],
   umdBase: [plugins.babel, plugins.replaceEnvDevelopment, ...prodCommonPlugins],
@@ -67,13 +78,20 @@ const pluginConfigs = {
   ],
 };
 
-const banner = `/**!
-* tippy-like-boilerplate v${pkg.version}
-* MIT License
-*/`;
+const banner = `/*!
+ * ${pkg.name} v${pkg.version}
+ * ${pkg.description}
+ * ${pkg.homepage}
+ * Licensed ${pkg.license}
+ */`;
 
 const commonUMDOutputOptions = {
-  globals: { '@popperjs/core': 'Popper' },
+  globals: { 
+    '@popperjs/core': 'Popper',
+    '@floating-ui/dom': 'FloatingUIDOM',
+    'react': 'React',
+    'react-dom': 'ReactDOM'
+  },
   format: 'umd',
   name: 'tippy',
   sourcemap: true,
@@ -83,7 +101,7 @@ const prodConfig = [
   {
     input: 'build/base-umd.js',
     plugins: pluginConfigs.umdBase,
-    external: ['@popperjs/core'],
+    external: ['@popperjs/core', '@floating-ui/dom', 'react', 'react-dom'],
     output: {
       ...commonUMDOutputOptions,
       file: 'dist/tippy.umd.js',
@@ -93,7 +111,7 @@ const prodConfig = [
   {
     input: 'build/bundle-umd.js',
     plugins: pluginConfigs.umdBundle,
-    external: ['@popperjs/core'],
+    external: ['@popperjs/core', '@floating-ui/dom', 'react', 'react-dom'],
     output: {
       ...commonUMDOutputOptions,
       file: 'dist/tippy-bundle.umd.js',
@@ -103,7 +121,7 @@ const prodConfig = [
   {
     input: 'build/base-umd.js',
     plugins: pluginConfigs.umdBaseMin,
-    external: ['@popperjs/core'],
+    external: ['@popperjs/core', '@floating-ui/dom', 'react', 'react-dom'],
     output: {
       ...commonUMDOutputOptions,
       file: 'dist/tippy.umd.min.js',
@@ -112,7 +130,7 @@ const prodConfig = [
   {
     input: 'build/bundle-umd.js',
     plugins: pluginConfigs.umdBundleMin,
-    external: ['@popperjs/core'],
+    external: ['@popperjs/core', '@floating-ui/dom', 'react', 'react-dom'],
     output: {
       ...commonUMDOutputOptions,
       file: 'dist/tippy-bundle.umd.min.js',
@@ -121,7 +139,7 @@ const prodConfig = [
   {
     input: 'build/base.js',
     plugins: pluginConfigs.bundle, // ← genera dist/tippy.css
-    external: ['@popperjs/core'],
+    external: ['@popperjs/core', '@floating-ui/dom', 'react', 'react-dom'],
     output: {
       file: 'dist/tippy.esm.js',
       format: 'esm',
@@ -132,7 +150,7 @@ const prodConfig = [
   {
     input: 'build/headless.js',
     plugins: pluginConfigs.base,
-    external: ['@popperjs/core'],
+    external: ['@popperjs/core', '@floating-ui/dom', 'react', 'react-dom'],
     output: {
       file: 'headless/dist/tippy-headless.esm.js',
       format: 'esm',
@@ -143,7 +161,7 @@ const prodConfig = [
   {
     input: 'build/base.js',
     plugins: pluginConfigs.bundle, // ← genera dist/tippy.css
-    external: ['@popperjs/core'],
+    external: ['@popperjs/core', '@floating-ui/dom', 'react', 'react-dom'],
     output: {
       file: 'dist/tippy.cjs.js',
       format: 'cjs',
@@ -155,7 +173,7 @@ const prodConfig = [
   {
     input: 'build/headless.js',
     plugins: pluginConfigs.base,
-    external: ['@popperjs/core'],
+    external: ['@popperjs/core', '@floating-ui/dom', 'react', 'react-dom'],
     output: {
       file: 'headless/dist/tippy-headless.cjs.js',
       format: 'cjs',
@@ -167,7 +185,7 @@ const prodConfig = [
   {
     input: 'build/headless-umd.js',
     plugins: pluginConfigs.umdBase,
-    external: ['@popperjs/core'],
+    external: ['@popperjs/core', '@floating-ui/dom', 'react', 'react-dom'],
     output: {
       ...commonUMDOutputOptions,
       file: 'headless/dist/tippy-headless.umd.js',
@@ -176,7 +194,7 @@ const prodConfig = [
   {
     input: 'build/headless-umd.js',
     plugins: pluginConfigs.umdBaseMin,
-    external: ['@popperjs/core'],
+    external: ['@popperjs/core', '@floating-ui/dom', 'react', 'react-dom'],
     output: {
       ...commonUMDOutputOptions,
       file: 'headless/dist/tippy-headless.umd.min.js',
@@ -184,34 +202,47 @@ const prodConfig = [
   },
 ];
 
-// DEV/TEST (sin cambios relevantes)
-const configs = {
-  dev: () => ({
-    input: 'test/visual/tests.js',
+const devConfig = () => [
+  {
+    input: 'build/base.js',
     plugins: [
       plugins.babel,
-      plugins.json,
-      plugins.resolve,
-      replace({ __DEV__: 'true' }),
       plugins.replaceEnvDevelopment,
-      sass({ output: true }), // hot build con CSS embebido a archivo en /test
-      serve({ contentBase: 'test/visual', port: 1234 }),
+      plugins.resolve,
+      plugins.json,
+      sass({ output: 'dist/tippy.css' }),
+      serve({
+        open: true,
+        contentBase: ['dist', 'example-cdn'],
+        port: 3000,
+      }),
       livereload(),
     ],
-    output: { file: 'test/visual/dist/bundle.js', format: 'iife' },
-  }),
-  test: () => ({
-    input: 'test/visual/tests.js',
-    plugins: [
-      plugins.babel,
-      plugins.json,
-      plugins.resolve,
-      replace({ __DEV__: 'true' }),
-      plugins.replaceEnvDevelopment,
-      sass({ output: true }),
-    ],
-    output: { file: 'test/visual/dist/bundle.js', format: 'iife' },
-  }),
+    external: ['@popperjs/core', '@floating-ui/dom', 'react', 'react-dom'],
+    output: {
+      file: 'dist/tippy.esm.js',
+      format: 'esm',
+      sourcemap: true,
+    },
+  },
+];
+
+const testConfig = () => [
+  {
+    input: 'build/bundle-umd.js',
+    plugins: pluginConfigs.umdBundle,
+    external: ['@popperjs/core', '@floating-ui/dom', 'react', 'react-dom'],
+    output: {
+      ...commonUMDOutputOptions,
+      file: 'dist/tippy-bundle.umd.js',
+    },
+  },
+];
+
+const configs = {
+  production: () => prodConfig,
+  dev: devConfig,
+  test: testConfig,
 };
 
 const func = configs[process.env.NODE_ENV];

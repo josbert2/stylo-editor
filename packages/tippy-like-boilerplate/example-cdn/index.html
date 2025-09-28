@@ -1,25 +1,208 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Tippy-like Boilerplate (CDN)</title>
-    <link rel="stylesheet" href="../dist/tippy.css" />
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tippy-like Boilerplate - Ejemplo CDN</title>
+    
+    <!-- CSS desde CDN (jsDelivr) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tippy-like-boilerplate@latest/dist/tippy.css">
+    
+    <!-- O usar archivo local para desarrollo -->
+    <!-- <link rel="stylesheet" href="../dist/tippy.css"> -->
+    
     <style>
-      body { font-family: system-ui, sans-serif; padding: 24px; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px;
+            line-height: 1.6;
+        }
+        
+        .demo {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .demo__title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #2c3e50;
+        }
+        
+        .result {
+            background: white;
+            padding: 16px;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+            margin: 12px 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+        
+        .button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 8px 8px 8px 0;
+            transition: background-color 0.2s;
+        }
+        
+        .button:hover {
+            background: #2980b9;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 16px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        
+        .code-block code {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+        }
+        
+        .section {
+            margin: 40px 0;
+        }
+        
+        .cdn-links {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .cdn-links h3 {
+            margin-top: 0;
+            color: #27ae60;
+        }
+        
+        .cdn-link {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 8px 0;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+        }
     </style>
-  </head>
-  <body>
-    <h1>UMD + CSS externo</h1>
-    <div id="app" class="demo">
-      <div class="demo__title">Boilerplate listo</div>
-      <div id="result"></div>
+</head>
+<body>
+    <h1>🚀 Tippy-like Boilerplate - Ejemplo CDN</h1>
+    
+    <div class="cdn-links">
+        <h3>📦 Enlaces CDN</h3>
+        <div class="cdn-link">
+            <strong>CSS:</strong> https://cdn.jsdelivr.net/npm/tippy-like-boilerplate@latest/dist/tippy.css
+        </div>
+        <div class="cdn-link">
+            <strong>JS:</strong> https://cdn.jsdelivr.net/npm/tippy-like-boilerplate@latest/dist/tippy-bundle.umd.min.js
+        </div>
     </div>
 
-    <script src="../dist/tippy-bundle.umd.js"></script>
+    <div class="section">
+        <h2>🎯 Uso Básico</h2>
+        <div class="demo">
+            <div class="demo__title">Función hello() básica</div>
+            <button class="button" onclick="runBasicExample()">Ejecutar Ejemplo</button>
+            <div id="basic-result" class="result"></div>
+        </div>
+        
+        <div class="code-block">
+            <code>
+// Disponible globalmente como window.tippy
+const result = window.tippy.hello({ name: "CDN User" });
+console.log(result); // "Hello, CDN User!"
+            </code>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔧 Ejemplos Interactivos</h2>
+        
+        <div class="demo">
+            <div class="demo__title">Diferentes nombres</div>
+            <button class="button" onclick="runExample('JavaScript')">JavaScript</button>
+            <button class="button" onclick="runExample('React')">React</button>
+            <button class="button" onclick="runExample('Vue')">Vue</button>
+            <button class="button" onclick="runExample('Angular')">Angular</button>
+            <div id="interactive-result" class="result"></div>
+        </div>
+        
+        <div class="demo">
+            <div class="demo__title">Input personalizado</div>
+            <input type="text" id="custom-input" placeholder="Escribe un nombre..." style="padding: 8px; margin-right: 8px; border: 1px solid #ddd; border-radius: 4px;">
+            <button class="button" onclick="runCustomExample()">Saludar</button>
+            <div id="custom-result" class="result"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📋 Información del Paquete</h2>
+        <div class="demo">
+            <div class="demo__title">Detalles técnicos</div>
+            <div id="package-info" class="result"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript desde CDN (jsDelivr) -->
+    <script src="https://cdn.jsdelivr.net/npm/tippy-like-boilerplate@latest/dist/tippy-bundle.umd.min.js"></script>
+    
+    <!-- O usar archivo local para desarrollo -->
+    <!-- <script src="../dist/tippy-bundle.umd.js"></script> -->
+    
     <script>
-      // UMD global: window.tippy
-      const res = window.tippy.hello({ name: "Node/NPM" });
-      document.getElementById("result").textContent = res;
+        // Verificar que el paquete se cargó correctamente
+        if (typeof window.tippy === 'undefined') {
+            document.body.innerHTML = '<div style="color: red; text-align: center; padding: 50px;"><h2>❌ Error: No se pudo cargar tippy-like-boilerplate</h2><p>Verifica que los archivos CDN estén disponibles o usa los archivos locales para desarrollo.</p></div>';
+        } else {
+            console.log('✅ tippy-like-boilerplate cargado correctamente');
+            console.log('Funciones disponibles:', Object.keys(window.tippy));
+        }
+
+        function runBasicExample() {
+            const result = window.tippy.hello({ name: "CDN User" });
+            document.getElementById('basic-result').textContent = result;
+        }
+
+        function runExample(name) {
+            const result = window.tippy.hello({ name: name });
+            document.getElementById('interactive-result').textContent = result;
+        }
+
+        function runCustomExample() {
+            const input = document.getElementById('custom-input');
+            const name = input.value.trim() || 'Anónimo';
+            const result = window.tippy.hello({ name: name });
+            document.getElementById('custom-result').textContent = result;
+        }
+
+        // Mostrar información del paquete
+        document.addEventListener('DOMContentLoaded', function() {
+            const info = `
+🔧 Objeto global: window.tippy
+📦 Funciones disponibles: ${Object.keys(window.tippy).join(', ')}
+🌐 Cargado desde: CDN (jsDelivr)
+✨ Estado: Listo para usar
+            `;
+            document.getElementById('package-info').textContent = info;
+            
+            // Ejecutar ejemplo básico automáticamente
+            runBasicExample();
+        });
     </script>
-  </body>
+</body>
 </html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tippy-like Boilerplate - Test Local</title>
+    
+    <!-- CSS local -->
+    <link rel="stylesheet" href="../dist/tippy.css">
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px;
+            line-height: 1.6;
+        }
+        
+        .demo {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .demo__title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #2c3e50;
+        }
+        
+        .result {
+            background: white;
+            padding: 16px;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+            margin: 12px 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+        
+        .button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 8px;
+            font-size: 14px;
+        }
+        
+        .button:hover {
+            background: #2980b9;
+        }
+        
+        .input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 8px;
+            font-size: 14px;
+        }
+        
+        .section {
+            margin: 40px 0;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 16px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        
+        .success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 Tippy-like Boilerplate - Test Local</h1>
+    
+    <div class="section">
+        <h2>🧪 Test Básico</h2>
+        <div class="demo">
+            <div class="demo__title">Función hello() básica</div>
+            <button class="button" onclick="runBasicExample()">Ejecutar hello()</button>
+            <div id="basic-result" class="result">Haz clic en el botón para probar</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🎮 Test Interactivo</h2>
+        <div class="demo">
+            <div class="demo__title">Prueba con diferentes nombres</div>
+            <button class="button" onclick="runExample('React')">hello('React')</button>
+            <button class="button" onclick="runExample('TypeScript')">hello('TypeScript')</button>
+            <button class="button" onclick="runExample('Rollup')">hello('Rollup')</button>
+            <div id="interactive-result" class="result">Selecciona una opción</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>✏️ Test Personalizado</h2>
+        <div class="demo">
+            <div class="demo__title">Ingresa tu propio nombre</div>
+            <input type="text" id="custom-input" class="input" placeholder="Tu nombre aquí...">
+            <button class="button" onclick="runCustomExample()">Saludar</button>
+            <div id="custom-result" class="result">Ingresa un nombre y haz clic en Saludar</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>⚛️ Test React Components</h2>
+        <div class="demo">
+            <div class="demo__title">Componentes React disponibles</div>
+            <div id="react-components" class="result">Verificando componentes...</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📋 Información del Paquete</h2>
+        <div class="demo">
+            <div class="demo__title">Detalles técnicos</div>
+            <div id="package-info" class="result"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript local -->
+    <script src="../dist/tippy-bundle.umd.js"></script>
+    
+    <script>
+        // Verificar que el paquete se cargó correctamente
+        if (typeof window.tippy === 'undefined') {
+            document.body.innerHTML = '<div style="color: red; text-align: center; padding: 50px;"><h2>❌ Error: No se pudo cargar tippy-like-boilerplate</h2><p>Verifica que el archivo ../dist/tippy-bundle.umd.js exista.</p></div>';
+        } else {
+            console.log('✅ tippy-like-boilerplate cargado correctamente');
+            console.log('Funciones disponibles:', Object.keys(window.tippy));
+        }
+
+        function runBasicExample() {
+            try {
+                const result = window.tippy.hello({ name: "Local Test" });
+                document.getElementById('basic-result').innerHTML = `<span class="success">✅ ${result}</span>`;
+            } catch (error) {
+                document.getElementById('basic-result').innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        function runExample(name) {
+            try {
+                const result = window.tippy.hello({ name: name });
+                document.getElementById('interactive-result').innerHTML = `<span class="success">✅ ${result}</span>`;
+            } catch (error) {
+                document.getElementById('interactive-result').innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        function runCustomExample() {
+            try {
+                const input = document.getElementById('custom-input');
+                const name = input.value.trim() || 'Anónimo';
+                const result = window.tippy.hello({ name: name });
+                document.getElementById('custom-result').innerHTML = `<span class="success">✅ ${result}</span>`;
+            } catch (error) {
+                document.getElementById('custom-result').innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        // Mostrar información del paquete
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof window.tippy !== 'undefined') {
+                const availableFunctions = Object.keys(window.tippy);
+                const info = `
+🔧 Objeto global: window.tippy
+📦 Funciones disponibles: ${availableFunctions.join(', ')}
+🌐 Cargado desde: Archivo local
+✨ Estado: Listo para usar
+                `;
+                document.getElementById('package-info').innerHTML = `<span class="success">${info}</span>`;
+                
+                // Verificar componentes React
+                const reactComponents = [];
+                if (window.tippy.Tooltip) reactComponents.push('Tooltip');
+                if (window.tippy.useTooltip) reactComponents.push('useTooltip');
+                
+                const reactInfo = reactComponents.length > 0 
+                    ? `✅ Componentes React disponibles: ${reactComponents.join(', ')}`
+                    : '⚠️ No se encontraron componentes React';
+                    
+                document.getElementById('react-components').innerHTML = `<span class="${reactComponents.length > 0 ? 'success' : 'error'}">${reactInfo}</span>`;
+                
+                // Ejecutar ejemplo básico automáticamente
+                runBasicExample();
+            }
+        });
+    </script>
+</body>
+</html>

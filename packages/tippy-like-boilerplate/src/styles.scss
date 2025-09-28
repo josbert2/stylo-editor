@@ -13,3 +13,148 @@
     color: var(--brand);
   }
 }
+
+// Variables
+$tooltip-bg: #333;
+$tooltip-color: #fff;
+$tooltip-border-radius: 4px;
+$tooltip-padding: 8px 12px;
+$tooltip-font-size: 14px;
+$tooltip-max-width: 300px;
+$tooltip-z-index: 9999;
+$tooltip-arrow-size: 6px;
+$tooltip-box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+
+// Tooltip base styles
+.tippy-tooltip {
+  position: absolute;
+  z-index: $tooltip-z-index;
+  max-width: $tooltip-max-width;
+  font-size: $tooltip-font-size;
+  line-height: 1.4;
+  pointer-events: none;
+  
+  .tippy-content {
+    background: $tooltip-bg;
+    color: $tooltip-color;
+    padding: $tooltip-padding;
+    border-radius: $tooltip-border-radius;
+    box-shadow: $tooltip-box-shadow;
+    word-wrap: break-word;
+  }
+  
+  .tippy-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: $tooltip-arrow-size solid transparent;
+  }
+  
+  // Arrow positioning based on placement
+  &[data-placement^="top"] .tippy-arrow {
+    bottom: -#{$tooltip-arrow-size};
+    border-top-color: $tooltip-bg;
+    border-bottom: none;
+  }
+  
+  &[data-placement^="bottom"] .tippy-arrow {
+    top: -#{$tooltip-arrow-size};
+    border-bottom-color: $tooltip-bg;
+    border-top: none;
+  }
+  
+  &[data-placement^="left"] .tippy-arrow {
+    right: -#{$tooltip-arrow-size};
+    border-left-color: $tooltip-bg;
+    border-right: none;
+  }
+  
+  &[data-placement^="right"] .tippy-arrow {
+    left: -#{$tooltip-arrow-size};
+    border-right-color: $tooltip-bg;
+    border-left: none;
+  }
+}
+
+// Animation classes (optional)
+.tippy-tooltip {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  
+  &.tippy-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Theme variations
+.tippy-tooltip.light {
+  .tippy-content {
+    background: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+  }
+  
+  &[data-placement^="top"] .tippy-arrow {
+    border-top-color: #fff;
+  }
+  
+  &[data-placement^="bottom"] .tippy-arrow {
+    border-bottom-color: #fff;
+  }
+  
+  &[data-placement^="left"] .tippy-arrow {
+    border-left-color: #fff;
+  }
+  
+  &[data-placement^="right"] .tippy-arrow {
+    border-right-color: #fff;
+  }
+}
+
+.tippy-tooltip.error {
+  .tippy-content {
+    background: #dc3545;
+    color: #fff;
+  }
+  
+  &[data-placement^="top"] .tippy-arrow {
+    border-top-color: #dc3545;
+  }
+  
+  &[data-placement^="bottom"] .tippy-arrow {
+    border-bottom-color: #dc3545;
+  }
+  
+  &[data-placement^="left"] .tippy-arrow {
+    border-left-color: #dc3545;
+  }
+  
+  &[data-placement^="right"] .tippy-arrow {
+    border-right-color: #dc3545;
+  }
+}
+
+.tippy-tooltip.success {
+  .tippy-content {
+    background: #28a745;
+    color: #fff;
+  }
+  
+  &[data-placement^="top"] .tippy-arrow {
+    border-top-color: #28a745;
+  }
+  
+  &[data-placement^="bottom"] .tippy-arrow {
+    border-bottom-color: #28a745;
+  }
+  
+  &[data-placement^="left"] .tippy-arrow {
+    border-left-color: #28a745;
+  }
+  
+  &[data-placement^="right"] .tippy-arrow {
+    border-right-color: #28a745;
+  }
+}

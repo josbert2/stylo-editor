@@ -1,10 +1,14 @@
 {
   "name": "tippy-like-boilerplate",
-  "version": "0.1.0",
-  "description": "Boilerplate estilo Tippy.js con Rollup: ESM/CJS/UMD, CSS separado y variante headless",
+  "version": "1.0.0",
+  "description": "Boilerplate estilo Tippy.js con Rollup: ESM/CJS/UMD, CSS separado y variante headless. Disponible como npm package y CDN.",
   "type": "module",
   "main": "dist/tippy.cjs.js",
   "module": "dist/tippy.esm.js",
+  "browser": "dist/tippy.umd.js",
+  "unpkg": "dist/tippy-bundle.umd.min.js",
+  "jsdelivr": "dist/tippy-bundle.umd.min.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -20,26 +24,61 @@
     },
     "./style.css": "./dist/tippy.css",
     "./umd": "./dist/tippy.umd.js",
-    "./umd-bundle": "./dist/tippy-bundle.umd.js"
+    "./umd-bundle": "./dist/tippy-bundle.umd.js",
+    "./dist/*": "./dist/*"
   },
   "files": [
     "dist",
-    "headless/dist"
+    "headless/dist",
+    "README.md",
+    "LICENSE"
   ],
   "sideEffects": [
     "**/*.css",
     "**/*.scss"
   ],
+  "keywords": [
+    "tooltip",
+    "popover",
+    "dropdown",
+    "popup",
+    "popper",
+    "floating-ui",
+    "react",
+    "typescript",
+    "rollup",
+    "umd",
+    "esm",
+    "cjs",
+    "cdn",
+    "npm"
+  ],
+  "author": "Tu Nombre <tu@email.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tu-usuario/tippy-like-boilerplate.git"
+  },
+  "homepage": "https://github.com/tu-usuario/tippy-like-boilerplate#readme",
+  "bugs": {
+    "url": "https://github.com/tu-usuario/tippy-like-boilerplate/issues"
+  },
   "scripts": {
     "dev": "cross-env NODE_ENV=dev rollup -c -w",
     "test:bundle": "cross-env NODE_ENV=test rollup -c",
     "build": "rimraf dist headless/dist && cross-env NODE_ENV=production rollup -c",
-    "prepublishOnly": "npm run build"
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir dist",
+    "prepublishOnly": "npm run build && npm run build:types",
+    "publish:npm": "npm publish",
+    "publish:beta": "npm publish --tag beta"
   },
   "devDependencies": {
     "@babel/core": "^7.25.0",
     "@babel/preset-env": "^7.25.0",
+    "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.24.7",
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.3.7",
     "cross-env": "^7.0.3",
     "rimraf": "^6.0.1",
     "rollup": "^2.79.1",
@@ -55,12 +94,23 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.6.9",
+    "@popperjs/core": "^2.11.8"
+  },
+  "peerDependencies": {
     "@popperjs/core": "^2.11.8",
-    "@floating-ui/dom": "^1.6.9"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "babel": {
     "presets": [
-      ["@babel/preset-env", { "modules": false }],
+      [
+        "@babel/preset-env",
+        {
+          "modules": false
+        }
+      ],
+      "@babel/preset-react",
       "@babel/preset-typescript"
     ]
   }
