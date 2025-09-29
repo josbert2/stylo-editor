@@ -1,11 +1,13 @@
-import { hello } from "../../src/index.ts";
+import { StyloEditor } from "../../src/index.ts";
 import "../../src/styles.scss";
 
-const app = document.getElementById("app");
-const box = document.createElement("div");
-box.className = "demo";
-box.innerHTML = `
-  <div class="demo__title">Boilerplate listo</div>
-  <div>Result: ${hello({ name: "FunPark" })}</div>
-`;
-app.appendChild(box);
+
+
+StyloEditor.init({
+  container: document.body,
+  panelOptions: {
+    minimized: false,
+    position: { x: 20, y: 20 }
+  },
+  excludeSelectors: ['.controls', '.controls *']
+});
