@@ -10,7 +10,7 @@ import type {
 export class InspectorPanel extends EventEmitter<StyloEditorEvents> {
   private container: HTMLElement;
   private panelElement: HTMLElement | null = null;
-  private isMinimized: boolean = false;
+  private isMinimized: boolean = true;
   private isDragging: boolean = false;
   private activeTab: TabType = 'design';
   private position = { x: 20, y: 20 };
@@ -29,7 +29,7 @@ export class InspectorPanel extends EventEmitter<StyloEditorEvents> {
     super();
 
     this.container = container;
-    this.isMinimized = options.minimized || false;
+    this.isMinimized = options.minimized ?? true;
     this.position = options.position || { x: 20, y: 20 };
     this.createLogoApp();
     this.createPanel();
@@ -183,16 +183,14 @@ l-3 60 52 23 c60 26 71 44 48 79 -14 22 -24 25 -74 25 -37 0 -86 -10 -140 -29z"/>
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 8px 12px;
         height: 100%;
         cursor: grab;
-        background: linear-gradient(135deg, #4AEDFF 0%, #B794F6 100%);
         border-radius: 8px;
       " data-drag-handle>
         <div style="display: flex; align-items: center; gap: 8px;">
           
           ${this.logoApp ? this.logoApp.outerHTML : ''}
-          <span style="font-size: 14px; font-weight: 500; color: white;">Stylo Editor ew</span>
+         
         </div>
         
         <div style="display: flex; align-items: center; gap: 4px;">

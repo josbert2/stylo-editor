@@ -31,7 +31,9 @@ export class StyloEditor extends EventEmitter<StyloEditorEvents> {
     // Configurar opciones del panel con minimized
     const panelOptions: PanelOptions = {
       ...options.panelOptions,
-      minimized: options.minimized || options.panelOptions?.minimized || false
+      // Respeta valores explícitos en options.panelOptions.minimized y options.minimized
+      // y por defecto inicia minimizado (true) si no se especifica
+      minimized: options.panelOptions?.minimized ?? options.minimized ?? true
     };
     
     // Inicializar componentes principales

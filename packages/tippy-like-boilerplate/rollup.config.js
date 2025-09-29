@@ -7,6 +7,7 @@ import sass from 'rollup-plugin-sass';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import postcss from 'rollup-plugin-postcss';
 import pkg from './package.json'; // ← ajustado a la raíz
 
 const NAMESPACE_PREFIX = process.env.NAMESPACE || 'tippy';
@@ -27,6 +28,14 @@ const plugins = {
   // Nota: cssOnly no compila SCSS. Usamos SASS para compilar y además extraer a archivo.
   css: cssOnly({ output: false }),
   json: json(),
+  tailwindDev: postcss({
+    plugins: [
+      require('tailwindcss'),
+      require('autoprefixer'),
+    ],
+    inject: true, // Inyecta CSS directamente en el JS
+    extensions: ['.css'],
+  }),
 };
 
 // Plugins comunes prod (sin CSS)
@@ -194,8 +203,9 @@ const configs = {
       plugins.resolve,
       replace({ __DEV__: 'true' }),
       plugins.replaceEnvDevelopment,
-      sass({ output: true }), // hot build con CSS embebido a archivo en /test
-      serve({ contentBase: 'test/visual', port: 1234 }),
+      plugins.tailwindDev,
+      // se agrego historyApiFallback para que funcione el router con tailwind
+      serve({ contentBase: 'test/visual', port: 1234, historyApiFallback: true, }),
       livereload(),
     ],
     output: { file: 'test/visual/dist/bundle.js', format: 'iife' },
@@ -209,6 +219,7 @@ const configs = {
       replace({ __DEV__: 'true' }),
       plugins.replaceEnvDevelopment,
       sass({ output: true }),
+      plugins.tailwindDev,
     ],
     output: { file: 'test/visual/dist/bundle.js', format: 'iife' },
   }),
