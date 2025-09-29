@@ -55,12 +55,20 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.6.9",
     "@popperjs/core": "^2.11.8",
-    "@floating-ui/dom": "^1.6.9"
+    "@tailwindcss/postcss": "^4.1.13",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.13"
   },
   "babel": {
     "presets": [
-      ["@babel/preset-env", { "modules": false }],
+      [
+        "@babel/preset-env",
+        {
+          "modules": false
+        }
+      ],
       "@babel/preset-typescript"
     ]
   }

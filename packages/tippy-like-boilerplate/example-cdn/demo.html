@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyloEditor Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .demo-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px dashed #e0e0e0;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        
+        .demo-section h2 {
+            color: #444;
+            margin-top: 0;
+        }
+        
+        .sample-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 15px 0;
+        }
+        
+        .sample-button {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        
+        .sample-button:hover {
+            background: #45a049;
+        }
+        
+        .sample-text {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+        }
+        
+        .controls button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .controls button:hover {
+            background: #f5f5f5;
+        }
+        
+        .controls button.active {
+            background: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <div class="controls">
+            <button id="initEditor" class="btn">Initialize StyloEditor</button>
+            <button id="initMinimized" class="btn">Initialize Minimized</button>
+            <button id="destroyEditor" class="btn">Destroy Editor</button>
+            <button id="toggleInspector" class="btn">Toggle Inspector</button>
+        </div>
+    </div>
+
+    <div class="demo-container">
+        <div class="header">
+            <h1>StyloEditor Demo</h1>
+            <p>Click "Initialize StyloEditor" to start editing elements on this page</p>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Sample Content to Edit</h2>
+            <p class="sample-text">
+                This is a sample paragraph that you can edit with StyloEditor. 
+                Try changing its color, font size, spacing, and more!
+            </p>
+            
+            <div class="sample-card">
+                <h3>Sample Card</h3>
+                <p>This card has padding, background, and shadow that you can modify.</p>
+                <button class="sample-button">Sample Button</button>
+            </div>
+            
+            <div class="sample-card">
+                <h3>Another Card</h3>
+                <p>Try selecting different elements and see how the editor adapts to each one.</p>
+                <button class="sample-button" style="background: #2196F3;">Blue Button</button>
+                <button class="sample-button" style="background: #FF9800;">Orange Button</button>
+            </div>
+        </div>
+        
+        <div class="info">
+            <h2>Instructions</h2>
+            <ol>
+                <li>Click "Initialize StyloEditor" to start the editor normally</li>
+                <li>Click "Initialize Minimized" to start the editor in minimized mode</li>
+                <li>The editor panel will appear on the screen</li>
+                <li>Click on any element to select and edit it</li>
+                <li>Use the panel to modify styles in real-time</li>
+                <li>Click "Toggle Inspector" to enable/disable element selection</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Load the StyloEditor library -->
+    <script src="../build/base.js"></script>
+    
+    <script>
+        let editorInstance = null;
+        
+        // Initialize StyloEditor normally
+        document.getElementById('initEditor').addEventListener('click', function() {
+            if (!editorInstance) {
+                editorInstance = StyloEditor.init({
+                    container: document.body,
+                    panelOptions: {
+                        minimized: false,
+                        position: { x: 20, y: 20 }
+                    },
+                    excludeSelectors: ['.controls', '.controls *']
+                });
+                
+                this.classList.add('active');
+                this.textContent = 'Editor Active';
+                document.getElementById('initMinimized').disabled = true;
+                
+                console.log('StyloEditor initialized (normal):', editorInstance);
+            }
+        });
+        
+        // Initialize StyloEditor minimized
+        document.getElementById('initMinimized').addEventListener('click', function() {
+            if (!editorInstance) {
+                editorInstance = StyloEditor.init({
+                    container: document.body,
+                    minimized: true, // Opción principal para inicializar minimizado
+                    panelOptions: {
+                        position: { x: 20, y: 20 }
+                    },
+                    excludeSelectors: ['.controls', '.controls *']
+                });
+                
+                this.classList.add('active');
+                this.textContent = 'Editor Active (Minimized)';
+                document.getElementById('initEditor').disabled = true;
+                
+                console.log('StyloEditor initialized (minimized):', editorInstance);
+            }
+        });
+        
+        // Destroy StyloEditor
+        document.getElementById('destroyEditor').addEventListener('click', function() {
+            if (editorInstance) {
+                StyloEditor.destroy();
+                editorInstance = null;
+                
+                // Reset buttons
+                const initBtn = document.getElementById('initEditor');
+                const initMinBtn = document.getElementById('initMinimized');
+                
+                initBtn.classList.remove('active');
+                initBtn.textContent = 'Initialize StyloEditor';
+                initBtn.disabled = false;
+                
+                initMinBtn.classList.remove('active');
+                initMinBtn.textContent = 'Initialize Minimized';
+                initMinBtn.disabled = false;
+                
+                console.log('StyloEditor destroyed');
+            }
+        });
+        
+        // Toggle Inspector
+        document.getElementById('toggleInspector').addEventListener('click', function() {
+            if (editorInstance) {
+                editorInstance.toggleInspector();
+                console.log('Inspector toggled');
+            } else {
+                alert('Please initialize StyloEditor first');
+            }
+        });
+        
+        // Log when elements are selected
+        document.addEventListener('stylo:element:selected', function(event) {
+            console.log('Element selected:', event.detail);
+        });
+    </script>
+</body>
+</html>

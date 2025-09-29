@@ -1,7 +1,10 @@
-:root { --brand: #4c8bf5; }
 
+:root { --brand: #4c8bf5; }
+body{
+  color: red;
+}
 .demo {
-  font-family: system-ui, sans-serif;
+
   padding: 12px 16px;
   border: 1px solid #ddd;
   border-radius: 8px;
